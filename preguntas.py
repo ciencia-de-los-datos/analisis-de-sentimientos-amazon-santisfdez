@@ -8,6 +8,7 @@ o indterminados (=NULL). En este taller se construir√° un modelo de clasificaci√
 Naive Bayes para determinar el sentimiento de un comentario.
 
 """
+from sre_parse import Tokenizer
 import numpy as np
 import pandas as pd
 
@@ -75,13 +76,14 @@ def pregunta_03():
     """
     # Importe el stemmer de Porter
     # Importe CountVectorizer
-    from ____ import ____
+    from sklearn.feature_extraction.text import CountVectorizer
+    from nlkt.stem.porter import PorterStemmer
 
     # Cree un stemeer que use el algoritmo de Porter.
-    stemmer = ____
+    stemmer = PorterStemmer()
 
     # Cree una instancia del analizador de palabras (build_analyzer)
-    analyzer = ____().____()
+    analyzer = CountVectorizer(lowercase=True,token_pattern=r"(?u)\b\w\w+\b").build_analyzer()
 
     # Retorne el analizador de palabras
     return lambda x: (stemmer.stem(w) for w in analyzer(x))
