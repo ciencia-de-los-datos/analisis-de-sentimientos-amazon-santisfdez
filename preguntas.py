@@ -138,12 +138,12 @@ def pregunta_04():
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
     param_grid = {
-        "Bernoulli_alpha": np.array(0.1, 1.01, 1),
+        "ber": np.array(0.1, 1.01, 1),
     }
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
     # parámetros. Use cv = 5, y "accuracy" como métrica de evaluación
-    gridSearchCV = GridsearchCV(
+    gridSearchCV = GridSearchCV(
         estimator=pipeline,
         param_grid=param_grid,
         cv=5,
