@@ -99,10 +99,14 @@ def pregunta_04():
     # Importe GridSearchCV
     # Importe Pipeline
     # Importe BernoulliNB
-    from ____ import ____
+    from sklearn.feature_extraction.text import CountVectorizer
+    from sklearn.model_selection import GridsearchCV
+    from sklearn.pipeline import Pipeline
+    from sklearn.naive_bayes import BernoulliNB
+    
 
     # Cargue las variables.
-    x_train, _, y_train, _ = pregunta_02()
+    x_train, x_tests, y_train, y_tests = pregunta_02()
 
     # Obtenga el analizador de la pregunta 3.
     analyzer = pregunta_03()
@@ -112,21 +116,21 @@ def pregunta_04():
     # límite superior para la frecuencia de palabras es del 100% y un límite
     # inferior de 5 palabras. Solo deben analizarse palabras conformadas por
     # letras.
-    countVectorizer = ____(
-        analyzer=____,
-        lowercase=____,
-        stop_words=____,
-        token_pattern=____,
-        binary=____,
-        max_df=____,
-        min_df=____,
+    countVectorizer = CountVectorizer(
+        analyzer=analyzer,
+        lowercase=True,
+        stop_words="english",
+        token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z]+\b",
+        binary=True,
+        max_df=1.0,
+        min_df=5,
     )
 
     # Cree un pipeline que contenga el CountVectorizer y el modelo de BernoulliNB.
-    pipeline = ____(
+    pipeline = Pipeline(
         steps=[
-            ("____", ____),
-            ("____", ____()),
+            ("vector", countVectorizer),
+            ("ber", BernoulliNB()),
         ],
     )
 
@@ -134,18 +138,18 @@ def pregunta_04():
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
     param_grid = {
-        "____": np.____(____, ____, ____),
+        "Bernoulli": np.array(0.1, 1.0, 10),
     }
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
     # parámetros. Use cv = 5, y "accuracy" como métrica de evaluación
-    gridSearchCV = ____(
-        estimator=____,
-        param_grid=____,
-        cv=____,
-        scoring=____,
-        refit=____,
-        return_train_score=____,
+    gridSearchCV = GridsearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        cv=5,
+        scoring="accuracy",
+        refit=True,
+        return_train_score=False,
     )
 
     # Búsque la mejor combinación de regresores
