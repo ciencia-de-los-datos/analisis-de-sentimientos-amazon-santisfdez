@@ -106,7 +106,8 @@ def pregunta_04():
     
 
     # Cargue las variables.
-    x_train, x_tests, y_train, y_tests = pregunta_02()
+    x_tagged, y_tagged, x_untagged, y_untagged = pregunta_01()
+    x_train, x_test, y_train, y_test = pregunta_02()
 
     # Obtenga el analizador de la pregunta 3.
     analyzer = pregunta_03()
@@ -138,7 +139,7 @@ def pregunta_04():
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
     param_grid = {
-        "ber": np.arange(0.1, 1.01, 1),
+        "ber_alpha": np.arange(0.1, 1.01, 1),
     }
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
@@ -166,7 +167,7 @@ def pregunta_05():
     """
 
     # Importe confusion_matrix
-    from ____ import ____
+    from sklearn.metrics import confusion_matrix
 
     # Obtenga el pipeline de la pregunta 3.
     gridSearchCV = pregunta_04()
